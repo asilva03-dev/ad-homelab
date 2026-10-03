@@ -37,15 +37,46 @@ This lab simulates an IT environment for Random Play, a small fictional company.
 
 ![CLIENT01 in Active Directory](Screenshots/ClientInAD.png)
 
+### Users, Groups, and Permissions
+
+- Built an OU structure containing Users (containing 4 different departments: IT, Sales, HR, and Finance), Groups and Workstations.
+  Used custom OUs instead of default containers so Group Policy can be applied
+
+![OU Structure](<Screenshots/OUStructure.png>)
+
+- Created 8 employee accounts across the 4 departments (2 per) with temporary passwords that the employees must change on first login (mirroring real onboarding).
+- Also created 2 accounts for myself, a standard account and an admin account. Made the admin account member of the Domain Admins group, giving it permissions. 
+- Created security groups for each department deciding what users can access and assigned users to groups.
+
+![OU Groups](<Screenshots/OUGroups.png>)
+![User assigned to sales group](<Screenshots/UserInGroup.png>)
+
+- Logged in to CLIENT01 as a regular employee and was prompted to create a new password on first login with the temporary password as expected.
+
+![Password change prompt](<Screenshots/UserPasswordChange.png>)
+
+- Confirmed admin tools were blocked for the standard user, then used Run as
+  administrator and approved the UAC prompt with my admin account. This works
+  because Domain Admins is nested in the workstation's local Administrators
+  group when it joins the domain.
+
+![Lacking Admin rights](<Screenshots/LackingAdminRights.png>)
+![Using Admin credentials](<Screenshots/UsingAdminCreds.png>)
+![Access after using admin credentials](<Screenshots/AdminAccess.png>)
+
+
+
 ## Bumps Along the Road
 
 - Running nslookup returned "Server: UnKnown." The lookup still worked. The
   warning happens because there's no reverse lookup zone, so nslookup can't
   resolve the DNS server's IP back to a name.
+- A new user's first password change was rejected. The default domain password
+  policy blocks passwords that contain the user's name or match a recent
+  password, including the temporary one.
 
 ## TODO
 
-- OUs, users, and security groups for each department
 - Help desk scenarios: password resets, lockouts, onboarding, offboarding
 - Group Policy (password policy, mapped drives)
 - Group-based shared folder permissions

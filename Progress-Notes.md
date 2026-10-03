@@ -21,3 +21,20 @@ local vs gateway traffic, why clients must use the DC for DNS
 
 What I learned: what promotion and domain join actually do, local vs domain
 accounts, cached credentials, why admins use separate accounts.
+
+## Session 3: Building the company
+- Wrote the first README and progress log and pushed them to GitHub
+- Created the OU structure: RandomPlay > Users (IT, Sales, HR, Finance), Groups, Workstations
+- Created 8 employee accounts, two per department, with temp passwords that must be changed at first logon
+- Created asilva (standard) and adm-asilva (added to Domain Admins)
+- Created IT-Staff, Sales-Staff, HR-Staff, and Finance-Staff groups and added users
+- Logged into CLIENT01 as a standard user. Password change was rejected by the domain policy, fixed by using a password without the user's name
+- Confirmed the standard user was denied access to Disk Management
+- Moved CLIENT01 from the default Computers container into the Workstations OU
+- Used Run as administrator as a standard user and approved the UAC prompt with adm-asilva
+
+What I learned: the difference between the network and the domain, how
+DHCP and the subnet relate, OUs vs groups, built-in groups like Domain Users
+and Domain Admins, what happened to the local Administrator during promotion,
+the default password policy, and how admin rights on a workstation come from
+Domain Admins being nested in its local Administrators group
